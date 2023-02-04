@@ -1,0 +1,10 @@
+insert into film_sessions(film_id, halls_id, start_time, end_time)
+values(1, 1, '2023-04-01 09:00:00', '2023-04-01 10:50:00');
+insert into film_sessions(film_id, halls_id, start_time, end_time)
+values(2, 2, '2023-04-01 10:00:00', '2023-04-01 12:00:00');
+insert into film_sessions(film_id, halls_id, start_time, end_time)
+values(3, 1, '2023-04-01 12:00:00', '2023-04-01 14:30:00');
+insert into film_sessions(film_id, halls_id, start_time, end_time)
+values(4, 2, '2023-04-01 12:00:00', '2023-04-01 13:40:00');
+insert into film_sessions(film_id, halls_id, start_time, end_time)
+values(5, 1, '2023-04-01 18:00:00', '2023-04-01 20:10:00');
