@@ -20,7 +20,7 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="/cinema/index">
                         <img th:src="@{/files/{fileId}(fileId=${1})}" alt = "Кинотеатр" width="40">
-                    </a>
+                      </a>
                     <a class="nav-item nav-link active" th:href="@{/cinema/schedule}">Расписание</a>
                     <a class="nav-item nav-link" th:href="@{/cinema/library}">Кинотека</a>
                 </div>
@@ -30,26 +30,34 @@
     </nav>
     <div class="container">
         <div class="row">
-            <table class="table">
+            <table class="table" th:object="${filmDto}">
                 <thead>
                 <tr>
-                    <th scope="col">Название фильма</th>
-                    <th scope="col">Зал</th>
-                    <th scope="col">Начало фильма</th>
-                    <th scope="col">Окончание фильма</th>
+                    <th scope="col"></th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Год</th>
+                    <th scope="col">Возраст</th>
+                    <th scope="col">Продолжительность</th>
+                    <th scope="col">Жанр</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="filmSession: ${filmSessions}">
-                    <td><a th:text="${filmSession.film}" th:href="@{/cinema/{filmId}(filmId=${filmSession.filmId})}"></a></td>
-                    <td th:text="${filmSession.halls}"/>
-                    <td th:text="${filmSession.startTime}"/>
-                    <td th:text="${filmSession.endTime}"/>
+                <tr th:each="film: ${filmDto}">
+                    <td class="something"><img th:src="@{/files/{fileId}(fileId=${film.fileId})}" alt = "Кинотеатр" width="100"></td>
+                    <td th:text="${film.name}"/>
+                    <td th:text="${film.description}"/>
+                    <td th:text="${film.year}"/>
+                    <td th:text="${film.minimalAge}"/>
+                    <td th:text="${film.durationInMinutes}"/>
+                    <td th:text="${film.genre}"/>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+</body>
+</html>
 </body>
 </html>

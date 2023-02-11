@@ -28,28 +28,11 @@
 
         </div>
     </nav>
-    <div class="container">
-        <div class="row">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Название фильма</th>
-                    <th scope="col">Зал</th>
-                    <th scope="col">Начало фильма</th>
-                    <th scope="col">Окончание фильма</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="filmSession: ${filmSessions}">
-                    <td><a th:text="${filmSession.film}" th:href="@{/cinema/{filmId}(filmId=${filmSession.filmId})}"></a></td>
-                    <td th:text="${filmSession.halls}"/>
-                    <td th:text="${filmSession.startTime}"/>
-                    <td th:text="${filmSession.endTime}"/>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="container" th:object="${ticket}">
+            <p class="text">Вы успешно приобрели билет на Место: <span th:text="${ticket.rowNumber}"></span>, Ряд: <span th:text="${ticket.placeNumber}"></span> </p>
     </div>
 </div>
+</body>
+</html>
 </body>
 </html>

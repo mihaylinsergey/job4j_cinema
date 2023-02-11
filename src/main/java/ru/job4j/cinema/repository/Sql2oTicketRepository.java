@@ -21,7 +21,7 @@ public class Sql2oTicketRepository implements TicketRepository {
         try (var connection = sql2o.open()) {
             var sql = """
                       INSERT INTO tickets(session_id, row_number, place_number, user_id)
-                      VALUES (:title, :description, :creationDate, :visible, :cityId, :fileId)
+                      VALUES (:sessionId, :rowNumber, :placeNumber, :userId)
                       """;
             var query = connection.createQuery(sql, true)
                     .addParameter("sessionId", ticket.getSessionId())
@@ -31,6 +31,8 @@ public class Sql2oTicketRepository implements TicketRepository {
             int generatedId = query.executeUpdate().getKey(Integer.class);
             ticket.setId(generatedId);
             return Optional.ofNullable(ticket);
+        } catch (Exception exception) {
+            return Optional.empty();
         }
     }
 

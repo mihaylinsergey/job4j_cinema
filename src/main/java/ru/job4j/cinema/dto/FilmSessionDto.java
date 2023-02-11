@@ -1,32 +1,25 @@
-package ru.job4j.cinema.model;
+package ru.job4j.cinema.dto;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Objects;
 
-public class FilmSession {
-
-    public static final Map<String, String> COLUMN_MAPPING = Map.of(
-            "id", "id",
-            "film_id", "filmId",
-            "halls_id", "hallsId",
-            "start_time", "startTime",
-            "end_Time", "endTime"
-    );
+public class FilmSessionDto {
 
     private int id;
     private int filmId;
-    private int hallsId;
+    private String film;
+    private String halls;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    public FilmSession() {
+    public FilmSessionDto() {
     }
 
-    public FilmSession(int id, int filmId, int hallsId, LocalDateTime startTime, LocalDateTime endTime) {
+    public FilmSessionDto(int id, int filmId, String film, String halls, LocalDateTime startTime, LocalDateTime endTime) {
         this.id = id;
         this.filmId = filmId;
-        this.hallsId = hallsId;
+        this.film = film;
+        this.halls = halls;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -47,12 +40,20 @@ public class FilmSession {
         this.filmId = filmId;
     }
 
-    public int getHallsId() {
-        return hallsId;
+    public String getFilm() {
+        return film;
     }
 
-    public void setHallsId(int hallsId) {
-        this.hallsId = hallsId;
+    public void setFilm(String film) {
+        this.film = film;
+    }
+
+    public String getHalls() {
+        return halls;
+    }
+
+    public void setHalls(String halls) {
+        this.halls = halls;
     }
 
     public LocalDateTime getStartTime() {
@@ -73,25 +74,18 @@ public class FilmSession {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FilmSession that = (FilmSession) o;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        FilmSessionDto that = (FilmSessionDto) o;
         return id == that.id;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "FilmSession{"
-               + "id=" + id
-               + ", filmId=" + filmId
-               + ", hallsId=" + hallsId
-               + ", startTime=" + startTime
-               + ", endTime=" + endTime
-               + '}';
     }
 }

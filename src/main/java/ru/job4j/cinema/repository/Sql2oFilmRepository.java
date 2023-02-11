@@ -3,7 +3,10 @@ package ru.job4j.cinema.repository;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Film;
+import ru.job4j.cinema.model.Genre;
+
 import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public class Sql2oFilmRepository implements FilmRepository {
@@ -18,7 +21,17 @@ public class Sql2oFilmRepository implements FilmRepository {
     public Collection<Film> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM films");
-            return query.executeAndFetch(Film.class);
+            return query.setColumnMappings(Film.COLUMN_MAPPING).executeAndFetch(Film.class);
+        }
+    }
+
+    @Override
+    public Optional<Film> findById(int id) {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("SELECT * FROM films WHERE id = :id");
+            query.addParameter("id", id);
+            var film = query.setColumnMappings(Film.COLUMN_MAPPING).executeAndFetchFirst(Film.class);
+            return Optional.ofNullable(film);
         }
     }
 }

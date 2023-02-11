@@ -8,3 +8,5 @@ insert into film_sessions(film_id, halls_id, start_time, end_time)
 values(4, 2, '2023-04-01 12:00:00', '2023-04-01 13:40:00');
 insert into film_sessions(film_id, halls_id, start_time, end_time)
 values(5, 1, '2023-04-01 18:00:00', '2023-04-01 20:10:00');
+insert into film_sessions(film_id, halls_id, start_time, end_time)
+values(1, 2, '2023-05-01 10:00:00', '2023-05-01 11:50:00');
