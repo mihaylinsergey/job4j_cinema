@@ -25,7 +25,14 @@
                     <a class="nav-item nav-link" th:href="@{/cinema/library}">Кинотека</a>
                 </div>
             </div>
-
+            <div class="d-flex" th:if="${user.fullName == 'Гость'}">
+                <a class="nav-link text-secondary me-3" th:href="@{/users/register}">Регистрация</a>
+                <a class="nav-link text-secondary" th:href="@{/users/login}">Войти</a>
+            </div>
+            <div class="d-flex" th:if="${user.fullName != 'Гость'}">
+                <a class="nav-link text-secondary me-3" href="#" th:text="${user.fullName}"></a>
+                <a class="nav-link text-secondary" th:href="@{/users/logout}">Выйти</a>
+            </div>
         </div>
     </nav>
     <div class="container">
@@ -43,8 +50,8 @@
                 <tr th:each="filmSession: ${filmSessions}">
                     <td><a th:text="${filmSession.film}" th:href="@{/cinema/{filmId}(filmId=${filmSession.filmId})}"></a></td>
                     <td th:text="${filmSession.halls}"/>
-                    <td th:text="${filmSession.startTime}"/>
-                    <td th:text="${filmSession.endTime}"/>
+                    <td th:text="${#temporals.format(filmSession.startTime, 'dd-MM-yyyy HH:mm')}" />
+                    <td th:text="${#temporals.format(filmSession.endTime, 'dd-MM-yyyy HH:mm')}" />
                 </tr>
                 </tbody>
             </table>

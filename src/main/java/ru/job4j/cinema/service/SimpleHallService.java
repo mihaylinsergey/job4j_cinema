@@ -21,4 +21,9 @@ public class SimpleHallService implements HallService {
     public Optional<Hall> findById(int id) {
         return hallRepository.findById(id);
     }
+
+    @Override
+    public Optional<Hall> findByName(String name) {
+        return hallRepository.findByName(name);
+    }
 }

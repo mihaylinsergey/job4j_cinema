@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface HallService {
 
     Optional<Hall> findById(int id);
+
+    Optional<Hall> findByName(String name);
 }

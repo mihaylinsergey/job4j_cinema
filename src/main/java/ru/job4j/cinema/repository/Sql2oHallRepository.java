@@ -27,4 +27,14 @@ public class Sql2oHallRepository implements HallRepository {
             return Optional.ofNullable(hall);
         }
     }
+
+    @Override
+    public Optional<Hall> findByName(String name) {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("SELECT * FROM halls WHERE name = :name");
+            query.addParameter("name", name);
+            var hall = query.setColumnMappings(Hall.COLUMN_MAPPING).executeAndFetchFirst(Hall.class);
+            return Optional.ofNullable(hall);
+        }
+    }
 }

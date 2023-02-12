@@ -88,4 +88,16 @@ public class FilmSessionDto {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "FilmSessionDto{"
+               + "id=" + id
+               + ", filmId=" + filmId
+               + ", film='" + film + '\''
+               + ", halls='" + halls + '\''
+               + ", startTime=" + startTime
+               + ", endTime=" + endTime
+               + '}';
+    }
 }

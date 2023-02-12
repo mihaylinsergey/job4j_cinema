@@ -47,13 +47,15 @@ public class CinemaController {
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id) {
         var filmSessionOptional = filmSessionService.getFilmSessionById(id);
+        System.out.println(filmSessionOptional.get());
+        System.out.println(filmService.findById(id).get());
         if (filmSessionOptional.isEmpty()) {
             model.addAttribute("message", "Сеанс не найден");
             return "errors/404";
         }
         model.addAttribute("filmSession", filmSessionOptional.get());
         model.addAttribute("filmDto", filmService.findById(id).get());
-        var hall = hallService.findById(id).get();
+        var hall = hallService.findByName(filmSessionOptional.get().getHalls()).get();
         List<Integer> rows = new ArrayList<>();
         List<Integer> places = new ArrayList<>();
         for (int i = 1; i <= hall.getRowCount(); i++) {

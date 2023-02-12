@@ -12,19 +12,68 @@ public class FilmDto {
     private String genre;
     private int fileId;
 
-    public FilmDto() {
-    }
+    public static class Builder {
+        private int id;
+        private String name;
+        private String description;
+        private int year;
+        private int minimalAge;
+        private int durationInMinutes;
+        private String genre;
+        private int fileId;
 
-    public FilmDto(int id, String name, String description, int year, int minimalAge, int durationInMinutes,
-                   String genre, int fileId) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.year = year;
-        this.minimalAge = minimalAge;
-        this.durationInMinutes = durationInMinutes;
-        this.genre = genre;
-        this.fileId = fileId;
+        public Builder buildId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder buildName(String name) {
+            this.name = name;
+            return this;
+        }
+
+       public Builder buildDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+       public Builder buildYear(int year) {
+            this.year = year;
+            return this;
+        }
+
+        public Builder buildMinimalAge(int minimalAge) {
+            this.minimalAge = minimalAge;
+            return this;
+        }
+
+        public Builder buildDurationInMinutes(int durationInMinutes) {
+            this.durationInMinutes = durationInMinutes;
+            return this;
+        }
+
+       public Builder buildGenre(String genre) {
+            this.genre = genre;
+            return this;
+        }
+
+        public Builder buildFileId(int fileId) {
+            this.fileId = fileId;
+            return this;
+        }
+
+        public FilmDto build() {
+            FilmDto filmDto = new FilmDto();
+            filmDto.id = id;
+            filmDto.name = name;
+            filmDto.description = description;
+            filmDto.year = year;
+            filmDto.minimalAge = minimalAge;
+            filmDto.durationInMinutes = durationInMinutes;
+            filmDto.genre = genre;
+            filmDto.fileId = fileId;
+            return filmDto;
+        }
     }
 
     public int getId() {

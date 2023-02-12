@@ -3,6 +3,7 @@ package ru.job4j.cinema.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cinema.dto.FilmDto;
+import ru.job4j.cinema.dto.FilmDto.*;
 import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.repository.FileRepository;
 import ru.job4j.cinema.repository.FilmRepository;
@@ -31,31 +32,33 @@ public class SimpleFilmService implements FilmService {
         return filmRepository
                 .findAll()
                 .stream()
-                .map(x -> new FilmDto(
-                        x.getId(),
-                        x.getName(),
-                        x.getDescription(),
-                        x.getYear(),
-                        x.getMinimalAge(),
-                        x.getDurationInMinutes(),
-                        genreRepository.findById(x.getGenreId()).get().getName(),
-                        x.getFileId()
-                ))
+                .map(x -> new Builder()
+                                .buildId(x.getId())
+                                .buildName(x.getName())
+                                .buildDescription(x.getDescription())
+                                .buildYear(x.getYear())
+                                .buildMinimalAge(x.getMinimalAge())
+                                .buildDurationInMinutes(x.getDurationInMinutes())
+                                .buildGenre(genreRepository.findById(x.getGenreId()).get().getName())
+                                .buildFileId(x.getFileId())
+                                .build()
+                )
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional<FilmDto> findById(int id) {
         var film = filmRepository.findById(id).get();
-        return Optional.ofNullable(new FilmDto(
-                film.getId(),
-                film.getName(),
-                film.getDescription(),
-                film.getYear(),
-                film.getMinimalAge(),
-                film.getDurationInMinutes(),
-                genreRepository.findById(film.getGenreId()).get().getName(),
-                film.getFileId()
-        ));
+        return Optional.ofNullable(new Builder()
+                .buildId(film.getId())
+                .buildName(film.getName())
+                .buildDescription(film.getDescription())
+                .buildYear(film.getYear())
+                .buildMinimalAge(film.getMinimalAge())
+                .buildDurationInMinutes(film.getDurationInMinutes())
+                .buildGenre(genreRepository.findById(film.getGenreId()).get().getName())
+                .buildFileId(film.getFileId())
+                .build()
+        );
     }
 }
