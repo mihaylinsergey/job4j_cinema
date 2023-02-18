@@ -47,8 +47,6 @@ public class CinemaController {
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id) {
         var filmSessionOptional = filmSessionService.getFilmSessionById(id);
-        System.out.println(filmSessionOptional.get());
-        System.out.println(filmService.findById(id).get());
         if (filmSessionOptional.isEmpty()) {
             model.addAttribute("message", "Сеанс не найден");
             return "errors/404";

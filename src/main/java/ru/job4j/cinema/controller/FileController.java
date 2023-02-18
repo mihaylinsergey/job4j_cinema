@@ -27,5 +27,4 @@ public class FileController {
         }
         return ResponseEntity.ok(contentOptional.get().getContent());
     }
-
 }
