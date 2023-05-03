@@ -30,13 +30,15 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user, Model model) {
+        String rsl;
         try {
             userService.save(user);
-            return "redirect:/cinema/index";
+            rsl = "redirect:/cinema/index";
         } catch (Exception exception) {
             model.addAttribute("message", "Пользователь с email " + user.getEmail() + " уже существует");
-            return "errors/404";
+            rsl = "errors/404";
         }
+        return rsl;
     }
 
    @GetMapping("/login")
@@ -46,14 +48,16 @@ public class UserController {
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
+        String rsl;
         var userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (userOptional.isEmpty()) {
             model.addAttribute("error", "Почта или пароль введены неверно");
-            return "users/login";
+            rsl = "users/login";
         }
         var session = request.getSession();
         session.setAttribute("user", userOptional.get());
-        return "redirect:/cinema/index";
+        rsl = "redirect:/cinema/index";
+        return rsl;
     }
 
     @GetMapping("/logout")

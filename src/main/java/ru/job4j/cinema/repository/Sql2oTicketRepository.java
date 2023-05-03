@@ -3,14 +3,16 @@ package ru.job4j.cinema.repository;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Ticket;
-
 import java.util.Collection;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Repository
 public class Sql2oTicketRepository implements TicketRepository {
 
     private final Sql2o sql2o;
+    private static final Logger LOG = LoggerFactory.getLogger(Sql2oTicketRepository.class.getName());
 
     public Sql2oTicketRepository(Sql2o sql2o) {
         this.sql2o = sql2o;
@@ -18,6 +20,7 @@ public class Sql2oTicketRepository implements TicketRepository {
 
     @Override
     public Optional<Ticket> save(Ticket ticket) {
+        Optional<Ticket> rsl = Optional.empty();
         try (var connection = sql2o.open()) {
             var sql = """
                       INSERT INTO tickets(session_id, row_number, place_number, user_id)
@@ -30,10 +33,11 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("userId", ticket.getUserId());
             int generatedId = query.executeUpdate().getKey(Integer.class);
             ticket.setId(generatedId);
-            return Optional.ofNullable(ticket);
-        } catch (Exception exception) {
-            return Optional.empty();
+            rsl = Optional.ofNullable(ticket);
+        } catch (Exception e) {
+            LOG.error("Error!", e);
         }
+        return rsl;
     }
 
      @Override

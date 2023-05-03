@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ThreadSafe
 @Service
@@ -17,6 +19,7 @@ public class SimpleFileService implements FileService {
     private final FileRepository fileRepository;
 
     private final String storageDirectory;
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleFileService.class.getName());
 
     public SimpleFileService(FileRepository sql2oFileRepository,
                              @Value("${file.directory}") String storageDirectory) {
@@ -29,7 +32,7 @@ public class SimpleFileService implements FileService {
         try {
             Files.createDirectories(Path.of(path));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("Error!", e);
         }
     }
 
@@ -44,10 +47,12 @@ public class SimpleFileService implements FileService {
     }
 
     private byte[] readFileAsBytes(String path) {
+        byte[] rsl = new byte[1];
         try {
-            return Files.readAllBytes(Path.of(path));
+            rsl = Files.readAllBytes(Path.of(path));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOG.error("Error!", e);
         }
+        return rsl;
     }
 }
